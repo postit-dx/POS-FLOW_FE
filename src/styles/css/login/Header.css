@@ -1,0 +1,18 @@
+.Header {
+    flex: 3; /* 30% 비율 */
+    padding: 20px 0 0 20px;
+    height: auto;
+
+    img {
+        width: 150px;
+        height: 70px;
+    }
+
+    p {
+        color: rgb(75, 81, 81);
+        font-size: 1.2em;
+        font-weight: bold;
+        padding-top: 10px;
+    }
+    
+}

@@ -6,6 +6,7 @@ import {CssBaseline, StyledEngineProvider} from "@mui/material";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Dashboard from "./components/vehicle/Dashboard";
 import Index from "./components/vehicle";
+import Login from "./components/login/Login";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,11 +15,12 @@ root.render(
         <StyledEngineProvider>
             <BrowserRouter>
                 <Routes>
-                    <Route path={"/"} element={<App/>}>
-                        <Route index path={"vehicle"} element={<Index />}></Route>
-                        <Route path="*" element={<Navigate to="/" />} />
+                    <Route path={"/login"} element={<Login />}></Route>
+                    <Route element={<App/>}>
+                        <Route path={"/vehicle"} element={<Index />}></Route>
+                        <Route path="/*" element={<Navigate to="/" />} />
                     </Route>
-                    <Route path={"/login"} element={<div>로그인 페이지</div>}></Route>
+                    
                 </Routes>
             </BrowserRouter>
         </StyledEngineProvider>

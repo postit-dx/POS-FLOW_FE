@@ -1,0 +1,82 @@
+.test {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* 전체 화면 높이 사용 */
+    overflow: hidden; /* 스크롤 방지 */
+
+    .Login {
+        flex: 10;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;  /* 가로 중앙 정렬 */
+        align-items: center;      /* 세로 중앙 정렬 */
+
+        .Login_Text {
+            color: #005793;
+            font-size: 2.4em;
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+
+        .Main {
+            flex-direction: column;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            flex-direction: column;
+
+            input {
+                width: 440px;
+                height: 30px;
+                padding-top: 20px;
+                padding-bottom: 30px;
+                margin: 10px;
+                border-width: 0 0 1px 0;
+                outline: none;
+                background-color: transparent;
+                font-size: 1.3em;
+                color: rgb(75, 81, 81);;
+
+                &::placeholder {
+                    color: #005793;
+                    opacity: 0.5;
+                }
+
+                &:-webkit-autofill { /* 자동완성 입력 시 */
+                    background-color: transparent !important; /* 배경색 원래대로 */
+                    color: rgb(75, 81, 81) !important; /* 글자색 원래대로 */
+                    font-size: 1.3em !important; /* 원래 크기 유지 */
+                    transition: background-color 5000s ease-in-out 0s; /* 브라우저 기본 스타일 무효화 */
+                }
+            }
+
+            .login-alert {
+                visibility: hidden;
+            }
+
+            .login-alert-view {
+                display: flex;
+                color: red;
+                font-weight: 500;
+                margin-top: 10px;
+            }
+
+            .Button {
+                width: 440px;
+                padding: 15px 10px;
+                margin: 70px 0 0 0;
+                align-items:center;
+                text-align: center;
+                justify-content: center;
+                background-color: #005793;
+                border: none;
+                color: #FFFFFF;
+                border-radius: 10px;
+                font-weight: bold;
+                font-size: 1.5em;
+                cursor: pointer;
+            }
+        }
+    }
+}
