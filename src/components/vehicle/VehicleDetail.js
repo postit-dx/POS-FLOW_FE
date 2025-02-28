@@ -9,7 +9,7 @@ function VehicleDetail({setModalOpen, id}) {
 
     const fetchVehicleDetail = async () => {
         try {
-            const response = await axios.get(`/vehicle/${id}`);
+            const response = await axios.get(`/api/vehicle/${id}`);
             const { data } = response.data;
 
             setVehicleDetail(data);
@@ -22,7 +22,7 @@ function VehicleDetail({setModalOpen, id}) {
 
     const putVehicleApproveStatus = async (option) => {
         try {
-            await axios.put(`/vehicle/${id}/changeApproval?isApproved=${option}`);
+            await axios.put(`/api/vehicle/${id}/changeApproval?isApproved=${option}`);
             setInitIsApproved(vehicleDetail.isApproved);
         } catch(err) {
             console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);
@@ -31,7 +31,7 @@ function VehicleDetail({setModalOpen, id}) {
 
     const putVehicleInspectionStatue = async (option) => {
         try {
-            await axios.put(`/vehicle/${id}/changeNeedInspection?needInspection=${option}`);
+            await axios.put(`/api/vehicle/${id}/changeNeedInspection?needInspection=${option}`);
             setInitNeedInspection(vehicleDetail.needInspection);
         } catch(err) {
             console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);

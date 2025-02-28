@@ -9,7 +9,7 @@ function Index() {
 
     const fetchVehicles = async () => {
         try {
-            const response = await axios.get(`/vehicle`)
+            const response = await axios.get(`/api/vehicle`)
             const jsonResult = response.data;
 
             setVehicles(jsonResult.data);
@@ -25,7 +25,7 @@ function Index() {
     return (
         <>
             <SearchForm setVehicles={setVehicles}/>
-            {/* <Dashboard vehicles={vehicles} fetchVehicles={fetchVehicles}/> */}
+            <Dashboard vehicles={vehicles} fetchVehicles={fetchVehicles}/>
         </>
     );
 }

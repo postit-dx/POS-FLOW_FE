@@ -19,7 +19,7 @@ function AddForm({setModalOpen, fetchVehicles}) {
 
     const addVehicles = async (vehicle) => {
         try {
-            const response = await axios.post(`/vehicle`, vehicle, {
+            const response = await axios.post(`/api/vehicle`, vehicle, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

@@ -45,6 +45,10 @@ module.exports = {
         liveReload: true,
         compress: true,
         hot: false,
-        historyApiFallback: true
+        historyApiFallback: true,
+        proxy: [{
+            context: ['/api/vehicle'],
+            target: 'http://localhost:8080'
+        }]
     }
 };

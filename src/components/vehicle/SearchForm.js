@@ -13,7 +13,7 @@ function SearchForm({setVehicles}) {
 
     const searchVehicles = async() => {
         try {
-            const response = await axios.get(`/vehicle/find?inDate=${searchData.inDate}&process=${searchData.process}&item=${searchData.item}&isApproved=${searchData.isApproved}`)
+            const response = await axios.get(`/api/vehicle/find?inDate=${searchData.inDate}&process=${searchData.process}&item=${searchData.item}&isApproved=${searchData.isApproved}`)
             const jsonResult = response.data;
 
             setVehicles(jsonResult.data);
