@@ -1,0 +1,8 @@
+:root {
+  --primary-blue: #007bff;
+  --secondary-blue: #0056b3;
+  --light-gray: #ccc;
+  --form-overlay-color: rgba(0, 0, 0, 0.5);
+  --table-td-border-color: #ddd;
+  --table-th-background-color: #f4f4f4;
+}
