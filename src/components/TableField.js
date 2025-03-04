@@ -13,7 +13,7 @@ export function TableThead({tableHeaders}) {
     )
 }
 
-export function TableTbody({vehicles, total}) {
+export function TableTbody({vehicles, totalColumnCount}) {
     const emptyStyle = {
         textAlign: 'center',
         color: 'gray',
@@ -30,7 +30,7 @@ export function TableTbody({vehicles, total}) {
                 )))
                 :
                 <tr>
-                    <td colSpan={total} style={emptyStyle}>
+                    <td colSpan={totalColumnCount} style={emptyStyle}>
                         no data
                     </td>
                 </tr>

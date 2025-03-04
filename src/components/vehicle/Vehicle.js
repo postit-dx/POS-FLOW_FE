@@ -13,20 +13,6 @@ function Vehicle({v}) {
                 className='underline-vehicle-number'
                 onClick={() => setVehicleDetailModalOpen(true)}
                 >{v.number}</td>
-            
-            <Modal
-                isOpen={vehicleDetailModalOpen}
-                onRequestClose={
-                    () => setVehicleDetailModalOpen(false)
-                }
-                className='form-modal' 
-                overlayClassName='form-overlay'
-                >
-                    <VehicleDetail 
-                        setModalOpen={setVehicleDetailModalOpen}
-                        id={v.id}/>
-            </Modal>
-
             <td>{}</td>
             <td>{}</td>
             <td>{}</td>
@@ -42,6 +28,16 @@ function Vehicle({v}) {
             <td>{v.employeeDep}</td>
             <td>{v.employeeName}</td>
             <td>{v.apDatetime}</td>
+
+            <Modal
+                isOpen={vehicleDetailModalOpen}
+                onRequestClose={ () => setVehicleDetailModalOpen(false) }
+                className='form-modal' 
+                overlayClassName='form-overlay'>
+                    <VehicleDetail 
+                        setModalOpen={setVehicleDetailModalOpen}
+                        id={v.id}/>
+            </Modal>
         </>
     );
 }

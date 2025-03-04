@@ -36,7 +36,7 @@ function Dashboard({vehicles, fetchVehicles}) {
 
             <table className='vehicle-table'>
                 <TableThead tableHeaders={tableHeaders}/>
-                <TableTbody vehicles={vehicles} total={tableHeaders.length}/>
+                <TableTbody vehicles={vehicles} totalColumnCount={tableHeaders.length}/>
             </table>
         </div>
     );
