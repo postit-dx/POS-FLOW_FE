@@ -1,6 +1,13 @@
+@import url(./Theme.css);
+
+:root {
+  --underline-color: var(--primary-blue);
+  --form-overlay: var(--form-overlay-color);
+}
+
 .underline-vehicle-number {
   text-decoration: underline;
-  color: #007bff;
+  color: var(--underline-color);
   cursor: pointer;
 }
 
@@ -17,7 +24,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--form-overlay);
   display: flex;
   align-items: center;
   justify-content: center;

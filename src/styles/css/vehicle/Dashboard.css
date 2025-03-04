@@ -1,6 +1,16 @@
+@import url(./Theme.css);
+
+:root {
+  --add-vehicle-button-enable: var(--primary-blue);
+  --add-vehicle-button-disable: var(--secondary-blue);
+  --form-overlay: var(--form-overlay-color);
+  --table-td-border: var(--table-td-border-color);
+  --table-th-background: var(--table-th-background-color);
+}
+
 .add-vehicle-button {
   padding: 8px 15px;
-  background-color: #007bff;
+  background-color: var(--add-vehicle-button-enable);
   color: white;
   border: none;
   border-radius: 4px;
@@ -10,7 +20,7 @@
 }
 
 .add-vehicle-button:hover {
-  background-color: #0056b3;
+  background-color: var(--add-vehicle-button-disable);
 }
 
 .form-modal {
@@ -26,7 +36,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--form-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,13 +49,13 @@
 
 .vehicle-table th,
 .vehicle-table td {
-  border: 1px solid #ddd;
+  border: 1px solid var(--table-td-border);
   padding: 8px;
   text-align: center;
 }
 
 .vehicle-table th {
-  background-color: #f4f4f4;
+  background-color: var(--table-th-background);
   font-weight: bold;
 }
 
