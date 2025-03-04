@@ -58,8 +58,3 @@
   background-color: var(--table-th-background);
   font-weight: bold;
 }
-
-.empty-vehicle {
-  text-align: center;
-  color: gray;
-}
