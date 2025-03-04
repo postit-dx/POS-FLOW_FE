@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../styles/css/vehicle/VehicleDetail.css';
 import axios from 'axios';
 
-function VehicleDetail({setModalOpen, id}) {
+function VehicleDetail({setModalOpen, saveIsApproved, saveNeedInspection, id}) {
     const [vehicleDetail, setVehicleDetail] = useState([]);
     const [initIsApproved, setInitIsApproved] = useState();
     const [initNeedInspection, setInitNeedInspection] = useState();
@@ -22,8 +22,11 @@ function VehicleDetail({setModalOpen, id}) {
 
     const putVehicleApproveStatus = async (option) => {
         try {
-            await axios.put(`/api/vehicle/${id}/changeApproval?isApproved=${option}`);
-            setInitIsApproved(vehicleDetail.isApproved);
+            const response = await axios.put(`/api/vehicle/${id}/changeApproval?isApproved=${option}`);
+            const { data } = response.data;
+
+            setInitIsApproved(data.isApproved);
+            saveIsApproved(data.isApproved, data.apDatetime);
         } catch(err) {
             console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);
         }
@@ -31,8 +34,11 @@ function VehicleDetail({setModalOpen, id}) {
 
     const putVehicleInspectionStatue = async (option) => {
         try {
-            await axios.put(`/api/vehicle/${id}/changeNeedInspection?needInspection=${option}`);
-            setInitNeedInspection(vehicleDetail.needInspection);
+            const response = await axios.put(`/api/vehicle/${id}/changeNeedInspection?needInspection=${option}`);
+            const { data } = response.data;
+
+            setInitNeedInspection(data.needInspection);
+            saveNeedInspection(data.needInspection);
         } catch(err) {
             console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);
         }

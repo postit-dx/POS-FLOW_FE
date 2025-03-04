@@ -5,6 +5,18 @@ import '../../styles/css/vehicle/Vehicle.css';
 
 function Vehicle({v}) {
     const [vehicleDetailModalOpen, setVehicleDetailModalOpen] = useState(false);
+    const [isApproved, setIsApproved] = useState(v.isApproved);
+    const [needInspection, setNeedInspection] = useState(v.needInspection);
+    const [apDatetime, setApDatetime] = useState(v.apDatetime);
+    
+    function saveIsApproved (flag, datetime) {
+        setIsApproved(flag);
+        setApDatetime(datetime);
+    }
+
+    function saveNeedInspection(flag) {
+        setNeedInspection(flag);
+    }
 
     return (
         <>
@@ -23,11 +35,11 @@ function Vehicle({v}) {
             <td>{}</td>
             <td>{}</td>
             <td>{}</td>
-            <td>{v.isApproved}</td>
-            <td>{v.needInspection}</td>
+            <td>{isApproved}</td>
+            <td>{needInspection}</td>
             <td>{v.employeeDep}</td>
             <td>{v.employeeName}</td>
-            <td>{v.apDatetime}</td>
+            <td>{apDatetime}</td>
 
             <Modal
                 isOpen={vehicleDetailModalOpen}
@@ -37,6 +49,8 @@ function Vehicle({v}) {
                 overlayClassName='form-overlay'>
                     <VehicleDetail 
                         setModalOpen={setVehicleDetailModalOpen}
+                        saveIsApproved={saveIsApproved}
+                        saveNeedInspection={saveNeedInspection}
                         id={v.id}/>
             </Modal>
         </>

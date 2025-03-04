@@ -12,7 +12,7 @@ function Login(props) {
         try {
             e.preventDefault();
 
-            const response = await axios.post('http://localhost:8080/user/login', {
+            const response = await axios.post('/user/login', {
                 accountId : id,
                 password : password
             });

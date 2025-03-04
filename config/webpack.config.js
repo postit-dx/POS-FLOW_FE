@@ -47,8 +47,11 @@ module.exports = {
         hot: false,
         historyApiFallback: true,
         proxy: [{
+            context: ['/user/login'],
+            target: 'http://3.36.89.31:9999'
+        },{
             context: ['/api/vehicle'],
-            target: 'http://localhost:8080'
+            target: 'http://3.36.89.31:9998'
         }]
     }
 };
