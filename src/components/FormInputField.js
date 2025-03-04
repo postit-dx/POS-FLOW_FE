@@ -15,14 +15,19 @@ export function InputField({label, type, value, onChange, className, placeholder
     )
 }
 
-export function SelectField({label, className, onChange, options}) {
+export function SelectField({label, className, onChange, value, options}) { /* form에서 사용하는 select option field */
     return (
         <div>
             <label>{label}</label>
             <select
                 className={className}
-                onChange={(e) => onChange(e.target.value)}>
-                    
+                onChange={onChange}
+                value={value}>
+                    {Object.entries(options).map(([key, val]) => (
+                        <option key={key} value={val}>
+                            {key}
+                        </option>
+                    ))}
                 </select>
         </div>
     )

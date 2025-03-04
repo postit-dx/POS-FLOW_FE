@@ -12,6 +12,21 @@ function SearchForm({setVehicles}) {
         isApproved: 'A'
     });
 
+    const processList = {
+        전체: '전체',
+        진행차량: '진행차량',
+        차량출발: '차량출발',
+        입문완료: '입문완료',
+        영차계량: '영차계량',
+        야드도착: '야드도착'
+    };
+
+    const isApprovedList = {
+        '전체': 'A',
+        '승인': 'Y',
+        '대상': 'N'
+    }
+    
     const searchVehicles = async() => {
         try {
             const response = await axios.get(`/api/vehicle/find?inDate=${searchData.inDate}&process=${searchData.process}&item=${searchData.item}&isApproved=${searchData.isApproved}`)
@@ -37,22 +52,13 @@ function SearchForm({setVehicles}) {
             </div>  
 
             <label className='header-label'>
-                {/* <SelectField
+                <SelectField
                     label={'진행상태'}
-                    /> */}
-
-
-                진행상태
-                <select 
-                    className='select-field'
-                    onChange={(event) => setSearchData({...searchData, process: event.target.value})}>
-                    <option>전체</option>
-                    <option>진행차량</option>
-                    <option>차량출발</option>
-                    <option>입문완료</option>
-                    <option>영차계량</option>
-                    <option>야드도착</option>
-                </select>
+                    className={'select-field'}
+                    onChange={(e) => {setSearchData({...searchData, process: e.target.value})}}
+                    value={searchData.process}
+                    options={processList}
+                    /> 
             </label>
 
             <label className='header-label'>
@@ -66,21 +72,15 @@ function SearchForm({setVehicles}) {
             </label>
 
             <label className='header-label'>
-                승인여부
-                <select 
-                    className="select-field"
-                    onChange={(event) => {
-                        const valueMap = {
-                            '전체': 'A',
-                            '승인': 'Y',
-                            '대상': 'N'
-                        };
-                        setSearchData({...searchData, isApproved: valueMap[event.target.value]});
-                    }}>
-                    <option>전체</option>
-                    <option>승인</option>
-                    <option>대상</option>
-                </select>
+                <SelectField
+                    label={'승인여부'}
+                    className={'select-field'}
+                    onChange={(e) => {
+                        setSearchData({...searchData, isApproved: e.target.value});
+                    }}
+                    value={searchData.isApproved}
+                    options={isApprovedList}
+                    />
             </label>
 
             <button 
