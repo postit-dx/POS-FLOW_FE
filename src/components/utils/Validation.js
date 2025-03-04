@@ -1,4 +1,4 @@
-export default function validateAddFormInput(
+export default function validateAddFormInput( /* 차량 등록 validation */
     vehicleNumber, vehicleInDatetime, vehicleOutDatetime,
     driverName, driverBirth, driverPhoneNumber,
     employeeName, employeeDepartment, employeePhoneNumber
@@ -24,11 +24,11 @@ export default function validateAddFormInput(
     return true;
 }
 
-export function validateTextInput(text) {
+export function validateTextInput(text) { /* text field 검사 */
     return !!text && text.trim() !== '';
 }
 
-export function validateBirth(birth) {
+export function validateBirth(birth) { /* 생년월일 검사 */
     const today = new Date();
     const birthDate = new Date(birth);
 
@@ -36,7 +36,7 @@ export function validateBirth(birth) {
     else return true;
 }
 
-export function validateDatetime(inDatetime, outDatetime) {
+export function validateDatetime(inDatetime, outDatetime) { /* 출발일시, 방문시간 검사 */
     const inDate = new Date(inDatetime);
     const outDate = new Date(outDatetime);
     const today = new Date();
@@ -47,7 +47,7 @@ export function validateDatetime(inDatetime, outDatetime) {
     return outDate > inDate;
 }
 
-export function validatePhoneNumber(phoneNumber) {
+export function validatePhoneNumber(phoneNumber) { /* 전화번호 검사 */
     const phonePattern = /^\d{3}-\d{3,4}-\d{4}$/;
     return phonePattern.test(phoneNumber);
 }

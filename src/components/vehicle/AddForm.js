@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import '../../styles/css/vehicle/AddForm.css';
-import validateAddFormInput from './utils/Validation';
-import formatDate, {formatDateTime} from './utils/DateFormat';
+import validateAddFormInput from '../utils/Validation';
+import {formatDateWithDots, formatDateTimeWithDots} from '../utils/DateFormat';
 import axios from 'axios';
+import {InputField} from '../FormInputField.js';
 
 function AddForm({setModalOpen, fetchVehicles}) {
     const [vehicleData, setVehicleData] = useState({
@@ -48,27 +49,24 @@ function AddForm({setModalOpen, fetchVehicles}) {
                         <InputField 
                             label={'차량번호'} 
                             type={'text'} 
-                            name={vehicleData.vehicleNumber} 
                             value={vehicleData.vehicleNumber}
-                            onChange={(v) => setVehicleData({...vehicleData, vehicleNumber: v})} />
+                            onChange={(v) => setVehicleData({...vehicleData, vehicleNumber: v.target.value})} />
                     </div>
 
                     <div className='input-container'>
                         <InputField 
                             label={'방문자명'} 
                             type={'text'} 
-                            name={vehicleData.driverName} 
                             value={vehicleData.driverName}
-                            onChange={(v) => setVehicleData({...vehicleData, driverName: v})}/>
+                            onChange={(v) => setVehicleData({...vehicleData, driverName: v.target.value})}/>
                     </div>
 
                     <div className='input-container'>
                         <InputField 
                             label={'방문자 핸드폰 번호'} 
                             type={'text'} 
-                            name={vehicleData.driverPhoneNumber} 
                             value={vehicleData.driverPhoneNumber}
-                            onChange={(v) => setVehicleData({...vehicleData, driverPhoneNumber: v})}
+                            onChange={(v) => setVehicleData({...vehicleData, driverPhoneNumber: v.target.value})}
                             placeholder={'000-0000-000'}/>
                     </div>
 
@@ -76,27 +74,24 @@ function AddForm({setModalOpen, fetchVehicles}) {
                         <InputField 
                             label={'생년월일'} 
                             type={'date'} 
-                            name={vehicleData.driverBirth} 
                             value={vehicleData.driverBirth}
-                            onChange={(v) => setVehicleData({...vehicleData, driverBirth: v})}/>
+                            onChange={(v) => setVehicleData({...vehicleData, driverBirth: v.target.value})}/>
                     </div>
 
                     <div className='input-container'>
                         <InputField 
                             label={'출발일시'} 
                             type={'datetime-local'} 
-                            name={vehicleData.vehicleInDatetime} 
                             value={vehicleData.vehicleInDatetime}
-                            onChange={(v) => setVehicleData({...vehicleData, vehicleInDatetime: v})}/>
+                            onChange={(v) => setVehicleData({...vehicleData, vehicleInDatetime: v.target.value})}/>
                     </div>
 
                     <div className='input-container'>
                         <InputField 
                             label={'방문기간'} 
                             type={'datetime-local'} 
-                            name={vehicleData.vehicleOutDatetime} 
                             value={vehicleData.vehicleOutDatetime}
-                            onChange={(v) => setVehicleData({...vehicleData, vehicleOutDatetime: v})}/>
+                            onChange={(v) => setVehicleData({...vehicleData, vehicleOutDatetime: v.target.value})}/>
                     </div>
                 </div>
 
@@ -106,9 +101,8 @@ function AddForm({setModalOpen, fetchVehicles}) {
                         <InputField 
                             label={'승인자'} 
                             type={'text'} 
-                            name={vehicleData.employeeName} 
                             value={vehicleData.employeeName}
-                            onChange={(v) => setVehicleData({...vehicleData, employeeName: v})}
+                            onChange={(v) => setVehicleData({...vehicleData, employeeName: v.target.value})}
                             />
                     </div>
 
@@ -116,9 +110,8 @@ function AddForm({setModalOpen, fetchVehicles}) {
                         <InputField 
                             label={'승인자 핸드폰 번호'} 
                             type={'text'} 
-                            name={vehicleData.employeePhoneNumber} 
                             value={vehicleData.employeePhoneNumber}
-                            onChange={(v) => setVehicleData({...vehicleData, employeePhoneNumber: v})}
+                            onChange={(v) => setVehicleData({...vehicleData, employeePhoneNumber: v.target.value})}
                             placeholder={'000-0000-000'}/>
                     </div>
 
@@ -126,9 +119,8 @@ function AddForm({setModalOpen, fetchVehicles}) {
                         <InputField 
                             label={'승인자 부서'} 
                             type={'text'} 
-                            name={vehicleData.employeeDepartment} 
                             value={vehicleData.employeeDepartment}
-                            onChange={(v) => setVehicleData({...vehicleData, employeeDepartment: v})}/>
+                            onChange={(v) => setVehicleData({...vehicleData, employeeDepartment: v.target.value})}/>
                     </div>
                 </div>
             </form>
@@ -148,10 +140,10 @@ function AddForm({setModalOpen, fetchVehicles}) {
                     )) {
                         const vehicle = {
                             number: vehicleData.vehicleNumber,
-                            inDatetime: formatDateTime(vehicleData.vehicleInDatetime),
-                            outDatetime: formatDateTime(vehicleData.vehicleOutDatetime),
+                            inDatetime: formatDateTimeWithDots(vehicleData.vehicleInDatetime),
+                            outDatetime: formatDateTimeWithDots(vehicleData.vehicleOutDatetime),
                             driverName: vehicleData.driverName,
-                            driverBirth: formatDate(vehicleData.driverBirth),
+                            driverBirth: formatDateWithDots(vehicleData.driverBirth),
                             driverPhone: vehicleData.driverPhoneNumber,
                             employeeName: vehicleData.employeeName,
                             employeeDep: vehicleData.employeeDepartment,
@@ -163,20 +155,6 @@ function AddForm({setModalOpen, fetchVehicles}) {
                 >등록하기</button>
         </div>
     );
-}
-
-function InputField({label, type, name, value, onChange, placeholder}) {
-    return(
-        <div className='input-container'>
-            <label>{label}</label>
-            <input 
-                type={type}
-                name={name}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                placeholder={placeholder}/>
-        </div>
-    )
 }
 
 export default AddForm;

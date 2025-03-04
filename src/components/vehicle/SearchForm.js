@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import '../../styles/css/vehicle/SearchForm.css';
-import formatDate from './utils/DateFormat.js';
+import {formatDateWithDots, formatToDashDate} from '../utils/DateFormat.js';
 import axios from 'axios';
+import {InputField, SelectField} from '../FormInputField.js';
 
 function SearchForm({setVehicles}) {
     const [searchData, setSearchData] = useState({
@@ -17,23 +18,30 @@ function SearchForm({setVehicles}) {
             const jsonResult = response.data;
 
             setVehicles(jsonResult.data);
+            console.log(searchData);
         } catch(err) {
             console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);
         }
     }
 
     return (
-        <div>
-            <label className='header-label'>
-                출발일시
-                <input 
-                    type='date' 
-                    className='input-field'
-                    onChange={(event) => setSearchData({...searchData, inDate: formatDate(event.target.value)})}
+        <div className='search-form'>
+            <div className='header-label'>
+                <InputField
+                    label={'출발일시'}
+                    type={'date'}
+                    value={formatToDashDate(searchData.inDate)}
+                    className={'input-field'}
+                    onChange={(e) => setSearchData({...searchData, inDate: formatDateWithDots(e.target.value)})}
                     />
-            </label>
+            </div>  
 
             <label className='header-label'>
+                {/* <SelectField
+                    label={'진행상태'}
+                    /> */}
+
+
                 진행상태
                 <select 
                     className='select-field'
@@ -48,11 +56,13 @@ function SearchForm({setVehicles}) {
             </label>
 
             <label className='header-label'>
-                공급사 Item
-                <input 
-                    type='text' 
-                    className='input-field'
-                    onChange={(event) => setSearchData({...searchData, item: event.target.value})}/>
+                <InputField
+                        label={'공급사 Item'}
+                        type={'text'}
+                        value={searchData.item}
+                        className={'input-field'}
+                        onChange={(e) => setSearchData({...searchData, item: e?.target?.value || ''})}
+                        />
             </label>
 
             <label className='header-label'>
