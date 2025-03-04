@@ -31,6 +31,7 @@ function Vehicle({v}) {
 
             <Modal
                 isOpen={vehicleDetailModalOpen}
+                shouldCloseOnOverlayClick={false}
                 onRequestClose={ () => setVehicleDetailModalOpen(false) }
                 className='form-modal' 
                 overlayClassName='form-overlay'>

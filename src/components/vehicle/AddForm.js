@@ -153,6 +153,11 @@ function AddForm({setModalOpen, fetchVehicles}) {
                     }                    
                 }}
                 >등록하기</button>
+
+                <button
+                    className='add-button'
+                    onClick={() => setModalOpen(false)}>
+                    취소하기</button>
         </div>
     );
 }

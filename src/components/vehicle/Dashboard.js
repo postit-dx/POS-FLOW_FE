@@ -27,6 +27,7 @@ function Dashboard({vehicles, fetchVehicles}) {
 
             <Modal
                 isOpen={modalOpen}
+                shouldCloseOnOverlayClick={false}
                 onRequestClose={ () => setModalOpen(false) }
                 className='form-modal' 
                 overlayClassName='form-overlay'>
