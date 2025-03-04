@@ -1,4 +1,4 @@
-.test {
+.Total {
     display: flex;
     flex-direction: column;
     height: 100vh; /* 전체 화면 높이 사용 */
@@ -8,7 +8,7 @@
         flex: 10;
         display: flex;
         flex-direction: column;
-        justify-content: center;  /* 가로 중앙 정렬 */
+        /*justify-content: center;   가로 중앙 정렬 */
         align-items: center;      /* 세로 중앙 정렬 */
 
         .Login_Text {
@@ -51,11 +51,11 @@
                 }
             }
 
-            .login-alert {
+            .Login_Alert {
                 visibility: hidden;
             }
 
-            .login-alert-view {
+            .Login_Alert_View {
                 display: flex;
                 color: red;
                 font-weight: 500;
