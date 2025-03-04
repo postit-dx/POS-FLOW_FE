@@ -33,7 +33,6 @@ function SearchForm({setVehicles}) {
             const jsonResult = response.data;
 
             setVehicles(jsonResult.data);
-            console.log(searchData);
         } catch(err) {
             console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);
         }

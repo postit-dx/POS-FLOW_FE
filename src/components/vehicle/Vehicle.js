@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import VehicleDetail from './VehicleDetail.js';
 import Modal from 'react-modal';
 import '../../styles/css/vehicle/Vehicle.css';
@@ -8,6 +8,12 @@ function Vehicle({v}) {
     const [isApproved, setIsApproved] = useState(v.isApproved);
     const [needInspection, setNeedInspection] = useState(v.needInspection);
     const [apDatetime, setApDatetime] = useState(v.apDatetime);
+
+    useEffect(() => {
+        setIsApproved(v.isApproved);
+        setNeedInspection(v.needInspection);
+        setApDatetime(v.apDatetime);
+    }, [v]);
     
     function saveIsApproved (flag, datetime) {
         setIsApproved(flag);
