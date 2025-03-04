@@ -7,6 +7,7 @@ import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Dashboard from "./components/vehicle/Dashboard";
 import Index from "./components/vehicle";
 import Login from "./components/login/Login";
+import PrivateRoute from './components/PrivateRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,11 +17,13 @@ root.render(
             <BrowserRouter>
                 <Routes>
                     <Route path={"/login"} element={<Login />}></Route>
-                    <Route element={<App/>}>
-                        <Route path={"/vehicle"} element={<Index />}></Route>
-                        <Route path="/*" element={<Navigate to="/" />} />
+                    <Route element={<PrivateRoute />}>
+                        <Route element={<App/>}>
+                            <Route path={"/vehicle"} element={<Index />}></Route>
+                            <Route path="/*" element={<Navigate to="/" />} />
+                        </Route>
                     </Route>
-                    
+
                 </Routes>
             </BrowserRouter>
         </StyledEngineProvider>

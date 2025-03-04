@@ -32,7 +32,7 @@ function Login(props) {
     }
 
     return (
-        <div className={"test"}>
+        <div className={"Total"}>
             <Header />
             <div className={"Login"}>
                 <p className="Login_Text">로그인</p>
@@ -61,7 +61,7 @@ function Login(props) {
                                 }
                             }}
                         />
-                        <p className={isCorrect ? "login-alert" : "login-alert-view"}>아이디 또는 비밀번호가 틀렸습니다.</p>
+                        <p className={isCorrect ? "Login_Alert" : "Login_Alert_View"}>아이디 또는 비밀번호가 틀렸습니다.</p>
                         <button
                             className={"Button"}
                             onClick={handleLogin}>
