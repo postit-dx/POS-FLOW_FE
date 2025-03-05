@@ -46,12 +46,17 @@ module.exports = {
         compress: true,
         hot: false,
         historyApiFallback: true,
-        proxy: [{
-            context: ['/user/login'],
-            target: 'http://3.36.89.31:9999'
-        },{
-            context: ['/api/vehicle'],
-            target: 'http://3.36.89.31:9998'
-        }]
+        proxy: [
+            {
+              context: ['/api'],
+              target: 'http://3.36.89.31',
+              changeOrigin: true,
+            },
+            {
+              context: ['/user'],
+              target: 'http://3.36.89.31',
+              changeOrigin: true,
+            },
+        ],
     }
 };
