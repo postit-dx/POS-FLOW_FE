@@ -24,7 +24,13 @@ function SearchForm({setVehicles}) {
     const isApprovedList = {
         '전체': 'A',
         '승인': 'Y',
-        '대상': 'N'
+        '반려': 'N'
+    }
+
+    const needInspectionList = {
+        '전체': 'A',
+        '승인': 'Y',
+        '반려': 'N'
     }
     
     const searchVehicles = async() => {
@@ -41,13 +47,22 @@ function SearchForm({setVehicles}) {
     return (
         <div className='search-form'>
             <div className='header-label'>
-                <InputField
-                    label={'출발일시'}
-                    type={'date'}
-                    value={formatToDashDate(searchData.inDate)}
-                    className={'input-field'}
-                    onChange={(e) => setSearchData({...searchData, inDate: formatDateWithDots(e.target.value)})}
-                    />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <InputField
+                        label={'출발일시'}
+                        type={'datetime-local'}
+                        value={formatToDashDate(searchData.inDate)}
+                        className={'input-field'}
+                        onChange={(e) => setSearchData({...searchData, inDate: formatDateWithDots(e.target.value)})}
+                        />
+                    <span style={{marginLeft: '10px'}}>~</span>
+                    <InputField
+                        type={'datetime-local'}
+                        value={formatToDashDate(searchData.inDate)}
+                        className={'input-field'}
+                        onChange={(e) => setSearchData({...searchData, inDate: formatDateWithDots(e.target.value)})}
+                        />
+                </div>
             </div>  
 
             <label className='header-label'>
@@ -62,23 +77,35 @@ function SearchForm({setVehicles}) {
 
             <label className='header-label'>
                 <InputField
-                        label={'공급사 Item'}
-                        type={'text'}
-                        value={searchData.item}
-                        className={'input-field'}
-                        onChange={(e) => setSearchData({...searchData, item: e?.target?.value || ''})}
-                        />
+                    label={'공급사 Item'}
+                    type={'text'}
+                    value={searchData.item}
+                    className={'input-field'}
+                    onChange={(e) => setSearchData({...searchData, item: e?.target?.value || ''})}
+                    />
             </label>
 
             <label className='header-label'>
                 <SelectField
-                    label={'승인여부'}
+                    label={'차량승인여부'}
                     className={'select-field'}
                     onChange={(e) => {
                         setSearchData({...searchData, isApproved: e.target.value});
                     }}
                     value={searchData.isApproved}
                     options={isApprovedList}
+                    />
+            </label>
+
+            <label className='header-label'>
+                <SelectField
+                    label={'검수대상여부'}
+                    className={'select-field'}
+                    onChange={(e) => {
+                        setSearchData({...searchData, needInspection: e.target.value});
+                    }}
+                    value={searchData.needInspection}
+                    options={needInspectionList}
                     />
             </label>
 
