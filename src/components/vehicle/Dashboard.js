@@ -23,7 +23,7 @@ function Dashboard({vehicles, fetchVehicles}) {
             <button 
                 className='add-vehicle-button'
                 onClick={ () => setModalOpen(true) }
-                >신규 등록</button>
+                >신규 차량 등록</button>
 
             <Modal
                 isOpen={modalOpen}

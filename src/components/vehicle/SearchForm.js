@@ -115,7 +115,6 @@ function SearchForm({setVehicles}) {
             <button 
                 className='search-button'
                 onClick={() => { 
-                    // validation 처리 이후
                     if(validateSearchVehicleInDatetime(searchData.vehicleInDatetimeStart, searchData.vehicleInDatetimeEnd)){ 
                         searchVehicles(); 
                     }
