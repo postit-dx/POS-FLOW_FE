@@ -34,7 +34,6 @@ function Dashboard({vehicles, fetchVehicles}) {
                     <AddForm setModalOpen={setModalOpen} fetchVehicles={fetchVehicles}/>
             </Modal>
 
-
             <table className='vehicle-table'>
                 <TableThead tableHeaders={tableHeaders}/>
                 <TableTbody vehicles={vehicles} totalColumnCount={tableHeaders.length}/>

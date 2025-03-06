@@ -2,14 +2,17 @@ import React, {useState} from 'react';
 import '../../styles/css/vehicle/SearchForm.css';
 import {formatDateWithDots, formatToDashDate} from '../utils/DateFormat.js';
 import axios from 'axios';
+import {validateSearchVehicleInDatetime} from '../utils/Validation.js';
 import {InputField, SelectField} from '../FormInputField.js';
 
 function SearchForm({setVehicles}) {
     const [searchData, setSearchData] = useState({
-        inDate: '',
+        vehicleInDatetimeStart: '',
+        vehicleInDatetimeEnd: '',
         process: '전체',
         item: '',
-        isApproved: 'A'
+        isApproved: 'A',
+        needInspection: 'A'
     });
 
     const processList = {
@@ -35,7 +38,7 @@ function SearchForm({setVehicles}) {
     
     const searchVehicles = async() => {
         try {
-            const response = await axios.get(`/api/vehicle/find?inDate=${searchData.inDate}&process=${searchData.process}&item=${searchData.item}&isApproved=${searchData.isApproved}`)
+            const response = await axios.get(`/api/vehicle/find?inDate=${searchData.vehicleInDatetimeStart}&process=${searchData.process}&item=${searchData.item}&isApproved=${searchData.isApproved}`)
             const jsonResult = response.data;
 
             setVehicles(jsonResult.data);
@@ -51,16 +54,16 @@ function SearchForm({setVehicles}) {
                     <InputField
                         label={'출발일시'}
                         type={'datetime-local'}
-                        value={formatToDashDate(searchData.inDate)}
+                        value={formatToDashDate(searchData.vehicleInDatetimeStart)}
                         className={'input-field'}
-                        onChange={(e) => setSearchData({...searchData, inDate: formatDateWithDots(e.target.value)})}
+                        onChange={(e) => setSearchData({...searchData, vehicleInDatetimeStart: formatDateWithDots(e.target.value)})}
                         />
                     <span style={{marginLeft: '10px'}}>~</span>
                     <InputField
                         type={'datetime-local'}
-                        value={formatToDashDate(searchData.inDate)}
+                        value={formatToDashDate(searchData.vehicleInDatetimeEnd)}
                         className={'input-field'}
-                        onChange={(e) => setSearchData({...searchData, inDate: formatDateWithDots(e.target.value)})}
+                        onChange={(e) => setSearchData({...searchData, vehicleInDatetimeEnd: formatDateWithDots(e.target.value)})}
                         />
                 </div>
             </div>  
@@ -111,7 +114,12 @@ function SearchForm({setVehicles}) {
 
             <button 
                 className='search-button'
-                onClick={() => { searchVehicles(); }}
+                onClick={() => { 
+                    // validation 처리 이후
+                    if(validateSearchVehicleInDatetime(searchData.vehicleInDatetimeStart, searchData.vehicleInDatetimeEnd)){ 
+                        searchVehicles(); 
+                    }
+                }}
                 >조회</button>
         </div>
     );
