@@ -24,7 +24,13 @@ function SearchForm({setVehicles}) {
     const isApprovedList = {
         '전체': 'A',
         '승인': 'Y',
-        '대상': 'N'
+        '반려': 'N'
+    }
+
+    const needInspectionList = {
+        '전체': 'A',
+        '승인': 'Y',
+        '반려': 'N'
     }
     
     const searchVehicles = async() => {
@@ -72,13 +78,25 @@ function SearchForm({setVehicles}) {
 
             <label className='header-label'>
                 <SelectField
-                    label={'승인여부'}
+                    label={'차량승인여부'}
                     className={'select-field'}
                     onChange={(e) => {
                         setSearchData({...searchData, isApproved: e.target.value});
                     }}
                     value={searchData.isApproved}
                     options={isApprovedList}
+                    />
+            </label>
+
+            <label className='header-label'>
+                <SelectField
+                    label={'검수대상여부'}
+                    className={'select-field'}
+                    onChange={(e) => {
+                        setSearchData({...searchData, needInspection: e.target.value});
+                    }}
+                    value={searchData.needInspection}
+                    options={needInspectionList}
                     />
             </label>
 
