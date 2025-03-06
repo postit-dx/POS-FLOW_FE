@@ -47,13 +47,22 @@ function SearchForm({setVehicles}) {
     return (
         <div className='search-form'>
             <div className='header-label'>
-                <InputField
-                    label={'출발일시'}
-                    type={'date'}
-                    value={formatToDashDate(searchData.inDate)}
-                    className={'input-field'}
-                    onChange={(e) => setSearchData({...searchData, inDate: formatDateWithDots(e.target.value)})}
-                    />
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <InputField
+                        label={'출발일시'}
+                        type={'datetime-local'}
+                        value={formatToDashDate(searchData.inDate)}
+                        className={'input-field'}
+                        onChange={(e) => setSearchData({...searchData, inDate: formatDateWithDots(e.target.value)})}
+                        />
+                    <span style={{marginLeft: '10px'}}>~</span>
+                    <InputField
+                        type={'datetime-local'}
+                        value={formatToDashDate(searchData.inDate)}
+                        className={'input-field'}
+                        onChange={(e) => setSearchData({...searchData, inDate: formatDateWithDots(e.target.value)})}
+                        />
+                </div>
             </div>  
 
             <label className='header-label'>
@@ -68,12 +77,12 @@ function SearchForm({setVehicles}) {
 
             <label className='header-label'>
                 <InputField
-                        label={'공급사 Item'}
-                        type={'text'}
-                        value={searchData.item}
-                        className={'input-field'}
-                        onChange={(e) => setSearchData({...searchData, item: e?.target?.value || ''})}
-                        />
+                    label={'공급사 Item'}
+                    type={'text'}
+                    value={searchData.item}
+                    className={'input-field'}
+                    onChange={(e) => setSearchData({...searchData, item: e?.target?.value || ''})}
+                    />
             </label>
 
             <label className='header-label'>
