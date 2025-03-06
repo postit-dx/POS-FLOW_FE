@@ -23,13 +23,13 @@ function SearchForm({setVehicles}) {
 
     const isApprovedList = {
         '전체': 'A',
-        '승인': 'Y',
+        '허가': 'Y',
         '반려': 'N'
     }
 
     const needInspectionList = {
         '전체': 'A',
-        '승인': 'Y',
+        '허가': 'Y',
         '반려': 'N'
     }
     

@@ -5,4 +5,6 @@
   --form-overlay-color: rgba(0, 0, 0, 0.5);
   --table-td-border-color: #ddd;
   --table-th-background-color: #f4f4f4;
+  --posco-blue: RGB(5, 80, 125);
+  --posco-light-blue: RGB(0, 165, 229);
 }

@@ -1,8 +1,8 @@
 @import url(./Theme.css);
 
 :root {
-  --add-vehicle-button-enable: var(--primary-blue);
-  --add-vehicle-button-disable: var(--secondary-blue);
+  --add-vehicle-button-enable: var(--posco-light-blue);
+  --add-vehicle-button-disable: var(--posco-blue);
   --form-overlay: var(--form-overlay-color);
   --table-td-border: var(--table-td-border-color);
   --table-th-background: var(--table-th-background-color);
