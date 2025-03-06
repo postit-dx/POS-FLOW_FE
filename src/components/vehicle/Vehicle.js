@@ -8,10 +8,6 @@ function Vehicle({v}) {
     const [apDatetime, setApDatetime] = useState();
     const [initNeedInspection, setInitNeedInspection] = useState();
 
-    const [isApproved, setIsApproved] = useState(v.isApproved);
-    const [needInspection, setNeedInspection] = useState(v.needInspection);
-
-
     const putVehicleApproveStatus = async (option) => {
         try {
             const response = await axios.put(`/api/vehicle/${vehicleDetail.id}/changeApproval?isApproved=${option}`);
@@ -63,8 +59,8 @@ function Vehicle({v}) {
                <RadioDataField 
                     vehicleDetail={vehicleDetail}
                     radioOptions={[
-                        { id: 'Y', label: 'Y', value: 'Y', checked: vehicleDetail.isApproved === 'Y', field: 'isApproved' },
-                        { id: 'N', label: 'N', value: 'N', checked: vehicleDetail.isApproved === 'N', field: 'isApproved' }
+                        { id: 'Y', label: '승인', value: 'Y', checked: vehicleDetail.isApproved === 'Y', field: 'isApproved' },
+                        { id: 'N', label: '반려', value: 'N', checked: vehicleDetail.isApproved === 'N', field: 'isApproved' }
                     ]}
                     onRadioChange={handleRadioChange}
                     selectedOption='isApproved'
@@ -72,7 +68,19 @@ function Vehicle({v}) {
                     onChangeRadioStatus={putVehicleApproveStatus}
                 />
             }</td>
-            <td>{needInspection}</td>
+            <td>{
+                <RadioDataField 
+                    vehicleDetail={vehicleDetail}
+                    radioOptions={[
+                        { id: 'Y', label: '승인', value: 'Y', checked: vehicleDetail.needInspection === 'Y', field: 'needInspection' },
+                        { id: 'N', label: '반려', value: 'N', checked: vehicleDetail.needInspection === 'N', field: 'needInspection' }
+                    ]}
+                    onRadioChange={handleRadioChange}
+                    selectedOption='needInspection'
+                    initValue={initNeedInspection}
+                    onChangeRadioStatus={putVehicleInspectionStatue}
+                />
+            }</td>
             <td>{vehicleDetail.employeeName}</td>
             <td>{vehicleDetail.employeeDep}</td>
             <td>{apDatetime}</td>
