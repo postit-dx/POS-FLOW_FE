@@ -1,8 +1,8 @@
 @import url(./Theme.css);
 
 :root {
-  --search-button-enable: var(--primary-blue);
-  --search-button-disable: var(--secondary-blue);
+  --search-button-enable: var(--posco-light-blue);
+  --search-button-disable: var(--posco-blue);
   --field-border: var(--light-gray);
 }
 

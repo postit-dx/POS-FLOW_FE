@@ -11,10 +11,10 @@ function Dashboard({vehicles, fetchVehicles}) {
     const [modalOpen, setModalOpen] = useState(false);
 
     const tableHeaders = [
-        "출발일시", "차량번호", "컨테이너번호", "Po No", 
-        "공급사 ITEM", "용차여부", "운송코드", "진행상태", 
-        "완료일시", "등록방법", "출입신청번호", "계량예약번호", 
-        "차량승인여부", "검수대상여부", "승인부서", "승인자", "승인일자"
+        "차량번호", "출발일시",  "방문기간", "Po No", 
+        "공급사 ITEM", "운송코드", "진행상태", 
+        "출입신청번호", "차량승인여부", 
+        "검수대상여부", "피방문자", "피방문자 부서", "차량승인일자"
     ];
     
 
@@ -33,7 +33,6 @@ function Dashboard({vehicles, fetchVehicles}) {
                 overlayClassName='form-overlay'>
                     <AddForm setModalOpen={setModalOpen} fetchVehicles={fetchVehicles}/>
             </Modal>
-
 
             <table className='vehicle-table'>
                 <TableThead tableHeaders={tableHeaders}/>

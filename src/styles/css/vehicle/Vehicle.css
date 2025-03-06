@@ -1,14 +1,16 @@
 @import url(./Theme.css);
 
 :root {
-  --underline-color: var(--primary-blue);
+  --vehicle-number-color: var(--posco-light-blue);
   --form-overlay: var(--form-overlay-color);
+  --button-enable: var(--primary-blue);
+  --button-disable: var(--secondary-blue);
 }
 
-.underline-vehicle-number {
-  text-decoration: underline;
-  color: var(--underline-color);
+.vehicle-number {
+  color: var(--vehicle-number-color);
   cursor: pointer;
+  font-weight: bold;
 }
 
 .form-modal {
@@ -28,4 +30,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.context-container {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.radio-container {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.update-button {
+  margin-left: 10px;
+  padding: 6px 13px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
 }

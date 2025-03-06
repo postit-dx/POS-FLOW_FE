@@ -51,3 +51,12 @@ export function validatePhoneNumber(phoneNumber) { /* 전화번호 검사 */
     const phonePattern = /^\d{3}-\d{3,4}-\d{4}$/;
     return phonePattern.test(phoneNumber);
 }
+
+export function validateSearchVehicleInDatetime(start, end) {
+    if(start === '' || end === '' || end < start) {
+        alert('출발일시를 확인해주세요');
+        return false;
+    } else {
+        return true;
+    }
+}

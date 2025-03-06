@@ -1,66 +1,139 @@
 import React, {useEffect, useState} from 'react';
-import VehicleDetail from './VehicleDetail.js';
-import Modal from 'react-modal';
 import '../../styles/css/vehicle/Vehicle.css';
+import axios from 'axios';
 
 function Vehicle({v}) {
-    const [vehicleDetailModalOpen, setVehicleDetailModalOpen] = useState(false);
-    const [isApproved, setIsApproved] = useState(v.isApproved);
-    const [needInspection, setNeedInspection] = useState(v.needInspection);
-    const [apDatetime, setApDatetime] = useState(v.apDatetime);
+    const [vehicleDetail, setVehicleDetail] = useState([]);
+    const [initIsApproved, setInitIsApproved] = useState();
+    const [apDatetime, setApDatetime] = useState();
+    const [initNeedInspection, setInitNeedInspection] = useState();
+
+    const putVehicleApproveStatus = async (option) => {
+        try {
+            const response = await axios.put(`/api/vehicle/${vehicleDetail.id}/changeApproval?isApproved=${option}`);
+            const { data } = response.data;
+
+            setInitIsApproved(data.isApproved);
+            setApDatetime(data.apDatetime);
+        } catch(err) {
+            console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);
+        }
+    }
+
+    const putVehicleInspectionStatue = async (option) => {
+        try {
+            const response = await axios.put(`/api/vehicle/${vehicleDetail.id}/changeNeedInspection?needInspection=${option}`);
+            const { data } = response.data;
+
+            setInitNeedInspection(data.needInspection);
+        } catch(err) {
+            console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);
+        }
+    }
 
     useEffect(() => {
-        setIsApproved(v.isApproved);
-        setNeedInspection(v.needInspection);
+        setVehicleDetail(v);
+        setInitIsApproved(v.isApproved);
         setApDatetime(v.apDatetime);
+        setInitNeedInspection(v.needInspection);
     }, [v]);
+
+    const handleRadioChange = (field, value) => {
+        setVehicleDetail(prevVehicleDetail => ({
+            ...prevVehicleDetail,
+            [field]: value
+        }));
+    };
     
-    function saveIsApproved (flag, datetime) {
-        setIsApproved(flag);
-        setApDatetime(datetime);
-    }
-
-    function saveNeedInspection(flag) {
-        setNeedInspection(flag);
-    }
-
     return (
         <>
-            <td>{v.inDatetime}</td>
-            <td
-                className='underline-vehicle-number'
-                onClick={() => setVehicleDetailModalOpen(true)}
-                >{v.number}</td>
+            <td className='vehicle-number'>{vehicleDetail.number}</td>
+            <td>{vehicleDetail.inDatetime}</td>
+            <td>{vehicleDetail.outDatetime}</td>
             <td>{}</td>
             <td>{}</td>
             <td>{}</td>
             <td>{}</td>
             <td>{}</td>
-            <td>{}</td>
-            <td>{v.outDatetime}</td>
-            <td>{}</td>
-            <td>{}</td>
-            <td>{}</td>
-            <td>{isApproved}</td>
-            <td>{needInspection}</td>
-            <td>{v.employeeDep}</td>
-            <td>{v.employeeName}</td>
+            <td>{
+               <RadioDataField 
+                    vehicleDetail={vehicleDetail}
+                    radioOptions={[
+                        { id: 'Y', label: '승인', value: 'Y', checked: vehicleDetail.isApproved === 'Y', field: 'isApproved' },
+                        { id: 'N', label: '반려', value: 'N', checked: vehicleDetail.isApproved === 'N', field: 'isApproved' }
+                    ]}
+                    onRadioChange={handleRadioChange}
+                    selectedOption='isApproved'
+                    initValue={initIsApproved}
+                    onChangeRadioStatus={putVehicleApproveStatus}
+                />
+            }</td>
+            <td>{
+                <RadioDataField 
+                    vehicleDetail={vehicleDetail}
+                    radioOptions={[
+                        { id: 'Y', label: '승인', value: 'Y', checked: vehicleDetail.needInspection === 'Y', field: 'needInspection' },
+                        { id: 'N', label: '반려', value: 'N', checked: vehicleDetail.needInspection === 'N', field: 'needInspection' }
+                    ]}
+                    onRadioChange={handleRadioChange}
+                    selectedOption='needInspection'
+                    initValue={initNeedInspection}
+                    onChangeRadioStatus={putVehicleInspectionStatue}
+                />
+            }</td>
+            <td>{vehicleDetail.employeeName}</td>
+            <td>{vehicleDetail.employeeDep}</td>
             <td>{apDatetime}</td>
-
-            <Modal
-                isOpen={vehicleDetailModalOpen}
-                shouldCloseOnOverlayClick={false}
-                onRequestClose={ () => setVehicleDetailModalOpen(false) }
-                className='form-modal' 
-                overlayClassName='form-overlay'>
-                    <VehicleDetail 
-                        setModalOpen={setVehicleDetailModalOpen}
-                        saveIsApproved={saveIsApproved}
-                        saveNeedInspection={saveNeedInspection}
-                        id={v.id}/>
-            </Modal>
         </>
     );
+}
+
+function RadioDataField({
+    vehicleDetail,
+    radioOptions, 
+    onRadioChange, 
+    selectedOption, 
+    initValue,
+    onChangeRadioStatus
+}) {
+    const disabledButtonColor = 'RGB(5, 80, 125)';
+    const enabledButtonColor = 'RGB(0, 165, 229';
+
+    return (
+        <div className='context-container'>
+            <div>
+                {radioOptions.map(option => (
+                    <div
+                        className='radio-container'
+                        key={option.id}>
+                            <input
+                                type='radio'
+                                id={option.id}
+                                value={option.value}
+                                checked={option.checked}
+                                onChange={() => onRadioChange(option.field, option.value)}
+                                />
+                        {option.label}
+                    </div>
+                ))}
+
+                <button 
+                    onClick={() => {
+                        if(selectedOption === 'isApproved') {
+                            onChangeRadioStatus(vehicleDetail.isApproved);
+                        } else {
+                            onChangeRadioStatus(vehicleDetail.needInspection);
+                        }
+                    }}
+                    className='update-button'
+                    style={{ backgroundColor: vehicleDetail[selectedOption] === initValue ? disabledButtonColor : enabledButtonColor }}
+                    disabled={vehicleDetail[selectedOption] === initValue}
+                    >
+                    변경하기
+                </button>
+            </div>
+        </div>
+    )
 }
 
 export default Vehicle;
