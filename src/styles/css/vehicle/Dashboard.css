@@ -8,6 +8,23 @@
   --table-th-background: var(--table-th-background-color);
 }
 
+.ag-header {
+  /* border-bottom: 1px solid #a4a4a4; */
+  background-color: var(--table-th-background);
+  font-weight: bold;
+}
+
+.ag-header-cell-label {
+  justify-content: center;
+  white-space: pre-line !important; /* 강제 줄바꿈 */
+  text-align: center; /* 중앙 정렬 */
+}
+
+.highlighted-column {
+  background-color: #ffeb3b !important;
+  transition: background-color 0.3s ease;
+}
+
 .add-vehicle-button {
   padding: 8px 15px;
   background-color: var(--add-vehicle-button-enable);
