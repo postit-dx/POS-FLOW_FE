@@ -11,66 +11,66 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 function Dashboard({vehicles, fetchVehicles}) {
     const [modalOpen, setModalOpen] = useState(false);
 
+    const [vehicleDetail, setVehicleDetail] = useState({});
+
     const [initIsApproved, setInitIsApproved] = useState();
     const [apDatetime, setApDatetime] = useState();
     const [initNeedInspection, setInitNeedInspection] = useState();
 
     const [rowData, setRowData] = useState([]);
     const [colDefs, setColDefs] = useState([
-        { field: "number", headerName: "차량번호", wrapText: true, autoHeight: true, cellStyle: { textAlign: "left" }, flex: 3},
-        { field: "driverName", headerName: "방문자명", flex: 3, wrapText: true, autoHeight: true },
-        { field: "driverBirth", headerName: "방문자 생년월일", flex: 3, wrapText: true, autoHeight: true},
-        { field: "driverPhone", headerName: "방문자 전화번호", flex: 3, wrapText: true, autoHeight: true },
-        { field: "inDatetime", headerName: "출발일시", flex: 3, wrapText: true, autoHeight: true},
-        { field: "outDatetime", headerName: "방문기간", flex: 3, wrapText: true, autoHeight: true },
-        { headerName: "Po No", flex: 3, wrapText: true, autoHeight: true },
-        { headerName: "공급사 ITEM", flex: 3, wrapText: true, autoHeight: true },
-        { headerName: "운송코드", flex: 3, wrapText: true, autoHeight: true},
-        { headerName: "진행상태", flex: 3, wrapText: true, autoHeight: true },
-        { headerName: "출입신청번호", flex: 3, wrapText: true, autoHeight: true },
+        
         {
             field: "isApproved",
             headerName: "차량승인여부",
-            cellRendererFramework: (params) => {
-                return (
-                    <RadioDataField
-                        vehicleDetail={params.data}
-                        radioOptions={[
-                            { id: 'Y', label: '승인', value: 'Y', checked: params.data.isApproved === 'Y', field: 'isApproved' },
-                            { id: 'N', label: '반려', value: 'N', checked: params.data.isApproved === 'N', field: 'isApproved' }
-                        ]}
-                        onRadioChange={handleRadioChange}
-                        selectedOption='isApproved'
-                        initValue={params.data.isApproved}
-                        onChangeRadioStatus={putVehicleApproveStatus}
-                    />
-                );
-            },
-            flex: 3
+            cellRenderer: (params) => {
+            return React.createElement(RadioDataField, {
+                vehicleDetail: params.data,
+                radioOptions: [
+                    { id: 'Y', label: '승인', value: 'Y', checked: params.data.isApproved === 'Y', field: 'isApproved' },
+                    { id: 'N', label: '반려', value: 'N', checked: params.data.isApproved === 'N', field: 'isApproved' }
+                ],
+                onRadioChange: handleRadioChange,
+                selectedOption: 'isApproved',
+                initValue: params.data.isApproved,
+                onChangeRadioStatus: putVehicleApproveStatus
+            });
+        },
+
         },
         {
             field: "needInspection",
             headerName: "검수대상여부",
-            cellRendererFramework: (params) => {
-                return (
-                    <RadioDataField
-                        vehicleDetail={params.data}
-                        radioOptions={[
-                            { id: 'Y', label: '승인', value: 'Y', checked: params.data.needInspection === 'Y', field: 'needInspection' },
-                            { id: 'N', label: '반려', value: 'N', checked: params.data.needInspection === 'N', field: 'needInspection' }
-                        ]}
-                        onRadioChange={handleRadioChange}
-                        selectedOption='needInspection'
-                        initValue={params.data.needInspection}
-                        onChangeRadioStatus={putVehicleInspectionStatue}
-                    />
-                );
+            cellRenderer: (params) => {
+                return React.createElement(RadioDataField, {
+                    vehicleDetail: params.data,
+                    radioOptions: [
+                        { id: 'Y', label: '승인', value: 'Y', checked: params.data.needInspection === 'Y', field: 'needInspection' },
+                        { id: 'N', label: '반려', value: 'N', checked: params.data.needInspection === 'N', field: 'needInspection' }
+                    ],
+                    onRadioChange: handleRadioChange,
+                    selectedOption: 'needInspection',
+                    initValue: params.data.needInspection,
+                    onChangeRadioStatus: putVehicleInspectionStatus
+                });
             },
-            flex: 3
+
         },
-        { field: "employeeName", headerName: "피방문자", flex: 3  },
-        { field: "employeeDep", headerName: "피방문자 부서", flex: 3},
-        { field: "employeePhone", headerName: "차량승인일자", flex: 3}
+        { field: "vehicleNumber", headerName: "차량번호", wrapText: true, autoHeight: true, cellStyle: { textAlign: "left" }},
+        { field: "driverName", headerName: "방문자명", wrapText: true, autoHeight: true },
+        { field: "driverBirth", headerName: "방문자\n생년월일", wrapText: true, autoHeight: true},
+        { field: "driverPhoneNumber", headerName: "방문자\n전화번호", wrapText: true, autoHeight: true },
+        { field: "vehicleInDatetime", headerName: "출발일시", wrapText: true, autoHeight: true},
+        { field: "vehicleOutDatetime", headerName: "방문기간", wrapText: true, autoHeight: true },
+        { field: "poNo", headerName: "Po No", wrapText: true, autoHeight: true },
+        { field: "supplyItem", headerName: "공급사\nITEM", wrapText: true, autoHeight: true },
+        { field: "deliveryCode", headerName: "운송코드",  wrapText: true, autoHeight: true},
+        { field: "process", headerName: "진행상태",  wrapText: true, autoHeight: true },
+        { field: "supplyItem", headerName: "출입신청번호", wrapText: true, autoHeight: true },
+        { field: "isApprovedDatetime", headerName: "차량승인일자"},
+        // { field: "employeeName", headerName: "피방문자", flex: 3  },
+        // { field: "employeeDepartment", headerName: "피방문자\n부서", flex: 3},
+        // { field: "employeePhoneNumber", headerName: "피방문자\n전화번호", flex: 3}
     ]);
 
     const [highlightedColumnId, setHighlightedColumnId] = useState(null);
@@ -87,10 +87,58 @@ function Dashboard({vehicles, fetchVehicles}) {
         return '';
     };
 
+    const handleRadioChange = (field, value, vehicleId) => {
+        console.log(field, value, vehicleId);
+        // setVehicleDetail((prevVehicleDetail) => ({
+        //     ...prevVehicleDetail,
+        //     [vehicleId]: {
+        //         ...prevVehicleDetail[vehicleId],
+        //         [field]: value
+        //     }
+        // }));
+    };
+
     useEffect(() => {
         setRowData(vehicles);
-        console.log(vehicles);
     }, [vehicles]);
+
+    const putVehicleApproveStatus = async (option, vehicleId) => {
+        try {
+            const response = await axios.put(`/api/vehicle/${vehicleId}/changeApproval?isApproved=${option}`);
+            const { data } = response.data;
+
+            // setInitIsApproved(data.isApproved);         
+            // saveIsApproved(data.isApproved, data.apDatetime);
+            setVehicleDetail(prev => ({
+                ...prev,
+                [vehicleId]: {
+                    ...prev[vehicleId],
+                    isApproved: data.isApproved
+                }
+            }));
+        } catch(err) {
+            console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);
+        }
+    }
+
+    const putVehicleInspectionStatus= async (option, vehicleId) => {
+        try {
+            const response = await axios.put(`/api/vehicle/${vehicleId}/changeNeedInspection?needInspection=${option}`);
+            const { data } = response.data;
+
+            // setInitNeedInspection(data.needInspection);
+            // saveNeedInspection(data.needInspection);
+            setVehicleDetail(prev => ({
+                ...prev,
+                [vehicleId]: {
+                    ...prev[vehicleId],
+                    needInspection: data.needInspection
+                }
+            }));
+        } catch(err) {
+            console.error(err.response ? `${err.response.status} ${err.response.data.message}` : err);
+        }
+    }
 
     const myTheme = themeQuartz.withParams({
         // headerHeight: '40px',
@@ -101,28 +149,28 @@ function Dashboard({vehicles, fetchVehicles}) {
         headerRowBorder: false,
         rowBorder: { style: "solid" },
         columnBorder: { style: "solid" },
-        wrapperBorderRadius: '0px', 
+        wrapperBorderRadius: '0px',
     });
 
     const defaultColDef = {
+        width: 300,
         suppressMovable: true,
-        // resizable: false,
-        resizable: true,
+        resizable: false,
+        // resizable: true,
         wrapText: true,
-        autoHeight: true
+        autoHeight: true,
+        cellStyle: { 
+            whiteSpace: 'normal', // 줄바꿈을 가능하게 하는 스타일 추가
+        }
     };
-
-    const getRowHeight = (params) => {
-        return params.node?.rowHeight ? params.node.rowHeight : 40; // 기본값 40
-    };    
-
+    
     const handleCellClicked = (event) => {        
         const rowData = event.data;
         console.log(rowData);
     }; 
-
+      
     return (
-        <div className='table-container'>
+        <div className='table-container' style={{ width: '100%', overflowX: 'auto' }}>
             <button 
                 className='add-vehicle-button'
                 onClick={ () => setModalOpen(true) }
@@ -138,6 +186,7 @@ function Dashboard({vehicles, fetchVehicles}) {
             </Modal>
 
             <AgGridReact
+                style={{minHeight:'100px'}}
                 domLayout='autoHeight'
                 theme={myTheme}
                 rowData={rowData}
@@ -150,10 +199,8 @@ function Dashboard({vehicles, fetchVehicles}) {
                 onCellClicked={handleCellClicked} 
                 onCellMouseOver={handleCellMouseOver}
                 onCellMouseOut={handleCellMouseOut}
-                // getRowHeight={() => { return 22; }}
-                // getRowHeight={getRowHeight}
+                getRowHeight={() => { return 30; }}
                 getCellClass={getCellClass}
-                style={{ width: '100%'}}
             />
         </div>
     );
@@ -182,7 +229,7 @@ function RadioDataField({
                                 id={option.id}
                                 value={option.value}
                                 checked={vehicleDetail[selectedOption] === option.value}
-                                onChange={() => onRadioChange(option.field, option.value)}
+                                onChange={() => onRadioChange(option.field, option.value, vehicleDetail.id)}
                                 />
                         {option.label}
                     </div>
@@ -191,9 +238,9 @@ function RadioDataField({
                 <button 
                     onClick={() => {
                         if(selectedOption === 'isApproved') {
-                            onChangeRadioStatus(vehicleDetail.isApproved);
+                            onChangeRadioStatus(vehicleDetail.isApproved, vehicleDetail.id);
                         } else {
-                            onChangeRadioStatus(vehicleDetail.needInspection);
+                            onChangeRadioStatus(vehicleDetail.needInspection, vehicleDetail.id);
                         }
                     }}
                     className='update-button'
